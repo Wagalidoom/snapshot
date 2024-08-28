@@ -1,0 +1,54 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: GNO Voting Power
+networks:
+- id: 1
+  start_block: 0
+  contracts:
+  - name: GnosisToken
+    address:
+    - 0x6810e776880C02933D47DB1b9fc05908e5386b96
+    handler: src/EventHandlers.ts
+    events:
+    - event: Transfer(address indexed from, address indexed to, uint256 value)
+  - name: TokenLock
+    address:
+    - 0x4f8AD938eBA0CD19155a835f617317a6E788c868
+    handler: src/EventHandlers.ts
+    events:
+    - event: Transfer(address indexed from, address indexed to, uint256 value)
+  - name: Vault
+    address:
+    - 0xBA12222222228d8Ba445958a75a0704d566BF2C8
+    handler: src/EventHandlers.ts
+    events:
+    - event: InternalBalanceChanged(address indexed user, address indexed token, int256 delta)
+    - event: PoolBalanceChanged(bytes32 indexed poolId, address indexed liquidityProvider, address[] tokens, int256[] deltas, uint256[] protocolFeeAmounts)
+    - event: Swap(bytes32 indexed poolId, address indexed tokenIn, address indexed tokenOut, uint256 amountIn, uint256 amountOut)
+  - name: Vyper_contract
+    address:
+    - 0xA6468eca7633246Dcb24E5599681767D27d1F978
+    - 0xCB664132622f29943f67FA56CCfD1e24CC8B4995
+    handler: src/EventHandlers.ts
+    events:
+    - event: Transfer(address indexed _from, address indexed _to, uint256 _value)
+  - name: WeightedPoolFactory
+    address:
+    - 0x8E9aa87E45e92bad84D5F8DD1bff34Fb92637dE9
+    - 0xA5bf2ddF098bb0Ef6d120C98217dD6B141c74EE0
+    handler: src/EventHandlers.ts
+    events:
+    - event: PoolCreated(address indexed pool)
+  - name: UniswapV3Factory
+    address:
+    - 0x1F98431c8aD98523631AE4a59f267346ea31F984
+    handler: src/EventHandlers.ts
+    events:
+    - event: PoolCreated(address indexed token0, address indexed token1, uint24 indexed fee, int24 tickSpacing, address pool)
+  - name: NonfungiblePositionManager
+    address:
+    - 0xC36442b4a4522E871399CD717aBDD847Ab11FE88
+    handler: src/EventHandlers.ts
+    events:
+    - event: DecreaseLiquidity(uint256 indexed tokenId, uint128 liquidity, uint256 amount0, uint256 amount1)
+    - event: IncreaseLiquidity(uint256 indexed tokenId, uint128 liquidity, uint256 amount0, uint256 amount1)
+    - event: Transfer(address indexed from, address indexed to, uint256 indexed tokenId)
